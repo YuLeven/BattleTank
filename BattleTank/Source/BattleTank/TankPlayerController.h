@@ -15,8 +15,14 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
+	//Constructor
+	ATankPlayerController();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 	class ATank* GetControlledTank() const;
 	
+	void AimTowardsCrosshair() const;
 	
 };
