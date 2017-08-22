@@ -5,14 +5,19 @@
 #include "Runtime/Engine/Classes/GameFramework/PlayerController.h"
 #include "Tank.h"
 
+ATankAIController::ATankAIController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
 void ATankAIController::BeginPlay()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tank AI reporting for duty!"));
-	ATank* PlayerTank = GetPlayerTank();
-	if (PlayerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("The player tank is: %s"), *PlayerTank->GetName());
-	}
+	Super::BeginPlay();
+}
+
+ATank* ATankAIController::GetControlledTank() const
+{
+	return Cast<ATank>(GetPawn());
 }
 
 ATank* ATankAIController::GetPlayerTank() const
@@ -21,8 +26,19 @@ ATank* ATankAIController::GetPlayerTank() const
 
 	if (PlayerController)
 	{
-		return Cast<ATank>(PlayerController->GetControlledPawn());
+		return Cast<ATank>(PlayerController->GetPawn());
 	}
 
 	return nullptr;
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	ATank* PlayerTank = GetPlayerTank();
+	if (PlayerTank)
+	{
+		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+	}
+	
 }
