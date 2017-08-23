@@ -15,6 +15,11 @@ public:
 
 	void AimAt(const FVector& HitLocation);
 
+protected:
+
+	UPROPERTY()
+	class UTankAimingComponent* TankAimingComponent;
+
 private:
 	// Sets default values for this pawn's properties
 	ATank();
@@ -27,7 +32,5 @@ private:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	
 	
 };
