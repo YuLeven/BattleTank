@@ -16,15 +16,22 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BluePrintCallable)
+	void AimAt(const FVector& HitLocation) const;
+
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+private:
 
-	UFUNCTION(BluePrintCallable())
-	void AimAt(const FVector& HitLocation) const;	
+	UPROPERTY()
+	class UStaticMeshComponent* Barrel;
 	
 };

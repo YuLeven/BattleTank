@@ -15,6 +15,9 @@ public:
 
 	void AimAt(const FVector& HitLocation);
 
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+
 protected:
 
 	UPROPERTY()
