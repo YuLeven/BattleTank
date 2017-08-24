@@ -1,11 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
-void ATank::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Setting barrel"));
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
 
@@ -16,6 +18,7 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	ProjectileLaunchSpeed = 4000.f;
 }
 
 // Called when the game starts or when spawned
@@ -40,6 +43,6 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::AimAt(const FVector& HitLocation)
 {
-	TankAimingComponent->AimAt(HitLocation);
+	TankAimingComponent->AimAt(HitLocation, ProjectileLaunchSpeed);
 }
 
