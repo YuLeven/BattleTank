@@ -20,7 +20,8 @@ public:
 	UTankBarrel();
 
 	//Moves the barrel horizontally
-	void Elevate(float DegreesPerSecond);
+	//-1 is max downward movenment, +1 is max upward movement
+	void Elevate(float RelativeSpeed);
 
 private:
 

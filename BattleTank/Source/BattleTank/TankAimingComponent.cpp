@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 
@@ -27,6 +28,9 @@ void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLau
 		Barrel->GetSocketLocation(FName("Projectile")),
 		HitLocation,
 		ProjectileLaunchSpeed,
+		false,
+		0,
+		0,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 
@@ -43,7 +47,7 @@ void UTankAimingComponent::MoveBarrelTowards(const FVector& AimDirection)
 	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
 	FRotator AimAsARotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimAsARotator - BarrelRotation;
-	Barrel->Elevate(5.f);
+	Barrel->Elevate(DeltaRotator.Pitch);
 }
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
