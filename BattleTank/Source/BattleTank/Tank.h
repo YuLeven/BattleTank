@@ -24,6 +24,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReference(UTankTurret* TurretToSet);
 
+	// Causes the tank to fire a projectile
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void Fire();
+
 protected:
 
 	// Returns a pointer to this tank's aimiming component class
