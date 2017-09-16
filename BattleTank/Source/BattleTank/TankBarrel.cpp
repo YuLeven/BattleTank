@@ -10,7 +10,7 @@ UTankBarrel::UTankBarrel()
 
 	// Turret's default settings
 	// They're blueprint editable, so go edit them there
-	MaxDegreesPerSecond = 5.f;
+	MaxDegreesPerSecond = 10.f;
 	MinEvelationDegrees = 0.f;
 	MaxElevationDegrees = 40.f;
 }

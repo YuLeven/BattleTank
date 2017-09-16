@@ -10,7 +10,7 @@ UTankTurret::UTankTurret()
 
 	// Turret's default settings
 	// They're blueprint editable, so go edit them there
-	MaxDegreesPerSecond = 5.f;
+	MaxDegreesPerSecond = 15.f;
 }
 
 void UTankTurret::Rotate(float RelativeSpeed)
