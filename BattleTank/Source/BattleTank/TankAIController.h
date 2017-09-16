@@ -23,8 +23,10 @@ private:
 
 	virtual void BeginPlay() override;
 
+	// Returns a point to the tank controlled by this instance of the AI controller
 	class ATank* GetControlledTank() const;
 	
+	// Returns a pointer to the player's tank
 	class ATank* GetPlayerTank() const;
 	
 };

@@ -13,17 +13,21 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 
+	// Causes the barrel and turret to move to a designed hit location
 	void AimAt(const FVector& HitLocation);
 
+	// Sets the tank barrel to be controlled by this class
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 protected:
 
+	// Returns a pointer to this tank's aimiming component class
 	UPROPERTY()
 	class UTankAimingComponent* TankAimingComponent;
 
 private:
+
 	// Sets default values for this pawn's properties
 	ATank();
 
@@ -33,6 +37,7 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// This determinates how fast (and thus how far) the project will go once fired
 	UPROPERTY(EditAnywhere, Category = "Firing")
 	float ProjectileLaunchSpeed;
 	

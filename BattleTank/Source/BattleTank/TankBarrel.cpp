@@ -8,7 +8,8 @@ UTankBarrel::UTankBarrel()
 
 	PrimaryComponentTick.bCanEverTick = false;
 
-	//Turret's default settings
+	// Turret's default settings
+	// They're blueprint editable, so go edit them there
 	MaxDegreesPerSecond = 5.f;
 	MinEvelationDegrees = 0.f;
 	MaxElevationDegrees = 40.f;

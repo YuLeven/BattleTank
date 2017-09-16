@@ -15,9 +15,13 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	// Uses the hit location and projectile launch speed to move the barrel in
+	// the direction of the to-be hit actor
 	UFUNCTION(BluePrintCallable)
 	void AimAt(const FVector& HitLocation, float ProjectileLaunchSpeed);
 
+	// Sets a reference to the barrel which will be moved by methods
+	// such as AimAt()
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(class UTankBarrel* BarrelToSet);
 
@@ -25,8 +29,11 @@ protected:
 
 private:
 
+	// Moves the barrel in the diretion according to the AimDirection unit vector
 	void MoveBarrelTowards(const FVector& AimDirection);
 
+	// This is the barrel which will be acted upon by the methods
+	// in this class
 	UPROPERTY()
 	class UTankBarrel* Barrel = nullptr;
 	

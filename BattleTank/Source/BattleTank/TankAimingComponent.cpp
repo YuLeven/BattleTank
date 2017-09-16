@@ -18,7 +18,9 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLaunchSpeed)
 {
-	//Return early if there's no Barrel
+	// Return early if there's no Barrel
+	// This should be set externally by the class composing itself with UTankAimingComponent
+	// TODO: Make an assertion here? This should always be set.
 	if (!Barrel) return;
 
 	FVector OutLaunchVelocity;
@@ -34,13 +36,13 @@ void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLau
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 
+	// If we managed to calculate a launch velocity, move the barrel towards its direction
 	if (bSucceededCalculatingLaunchVelocity)
 	{
 		MoveBarrelTowards(OutLaunchVelocity.GetSafeNormal());
 	}
 
 }
-
 
 void UTankAimingComponent::MoveBarrelTowards(const FVector& AimDirection)
 {
