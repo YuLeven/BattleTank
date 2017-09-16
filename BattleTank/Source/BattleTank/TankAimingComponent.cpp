@@ -19,10 +19,19 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLaunchSpeed)
 {
-	// Return early if there's no Barrel
+	// Return early if there's no Barrel or Turret
 	// This should be set externally by the class composing itself with UTankAimingComponent
 	// TODO: Make an assertion here? This should always be set.
-	if (!Barrel) return;
+	auto BasicMessage = FString(TEXT("static mesh component reference is not set in TankAimimingComponent. It won't move until it's set from blueprint"));
+	if (!Barrel) {
+		UE_LOG(LogTemp, Error, TEXT("Barrel %s"), *BasicMessage)
+		return;
+	}
+
+	if (!Turret) {
+		UE_LOG(LogTemp, Error, TEXT("Turret %s"), *BasicMessage)
+		return;
+	}
 
 	FVector OutLaunchVelocity;
 	bool bSucceededCalculatingLaunchVelocity = UGameplayStatics::SuggestProjectileVelocity(
@@ -53,23 +62,12 @@ FRotator UTankAimingComponent::CalculateDeltaRotator(const FRotator& RotatorA, c
 
 void UTankAimingComponent::MoveBarrelTowards(const FVector& AimDirection)
 {
-	
-	if (Barrel == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("Barrel static mesh component reference is not set in TankAimimingComponent. It won't move until it's set from blueprint"))
-		return;
-	}
-
 	FRotator DeltaRotator = CalculateDeltaRotator(AimDirection.Rotation(), Barrel->GetForwardVector().Rotation());
 	Barrel->Elevate(DeltaRotator.Pitch);
 }
 
 void UTankAimingComponent::MoveTurretTowards(const FVector& AimDirection)
 {
-	if (Turret == nullptr) {
-		UE_LOG(LogTemp, Error, TEXT("Turret static mesh component reference is not set in TankAimimingComponent. It won't move until it's set from blueprint"))
-		return;
-	}
-
 	FRotator DeltaRotator = CalculateDeltaRotator(AimDirection.Rotation(), Turret->GetForwardVector().Rotation());
 	Turret->Rotate(DeltaRotator.Yaw);
 }
