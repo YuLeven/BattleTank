@@ -20,6 +20,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
+	// Sets the tank turret to be controlled by this class
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	void SetTurretReference(UTankTurret* TurretToSet);
+
 protected:
 
 	// Returns a pointer to this tank's aimiming component class

@@ -25,16 +25,27 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(class UTankBarrel* BarrelToSet);
 
+	UFUNCTION(BlueprintCallable, Category = "Steup")
+	void SetTurretReference(class UTankTurret* TurretToSet);
+
 protected:
 
 private:
 
-	// Moves the barrel in the diretion according to the AimDirection unit vector
+	// Moves the barrel in vertically the diretion according to the AimDirection unit vector
 	void MoveBarrelTowards(const FVector& AimDirection);
 
-	// This is the barrel which will be acted upon by the methods
-	// in this class
+	// Moves the turrent horizontally in the diretion according to the AimDirection unit vector
+	void MoveTurretTowards(const FVector& AimDirection);
+
+	// This is the barrel which will be acted upon by the methods in this class
 	UPROPERTY()
-	class UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;
+
+	// This is the turret which will be actec upon by the methods in this class
+	UPROPERTY()
+	UTankTurret* Turret = nullptr;
+
+	FORCEINLINE FRotator CalculateDeltaRotator(const FRotator& RotatorA, const FRotator& RotatorB);
 	
 };
