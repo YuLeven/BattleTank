@@ -17,15 +17,15 @@ public:
 	void AimAt(const FVector& HitLocation);
 
 	// Sets the tank barrel to be controlled by this class
-	UFUNCTION(BlueprintCallable, Category = "Setup")
+	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	// Sets the tank turret to be controlled by this class
-	UFUNCTION(BlueprintCallable, Category = "Setup")
+	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReference(UTankTurret* TurretToSet);
 
 	// Causes the tank to fire a projectile
-	UFUNCTION(BlueprintCallable, Category = "Setup")
+	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
 protected:
