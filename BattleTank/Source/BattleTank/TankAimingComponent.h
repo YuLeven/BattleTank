@@ -25,6 +25,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(class UTankBarrel* BarrelToSet);
 
+	// Returns the pointer to the barrel being manipulated by this class
+	FORCEINLINE UTankBarrel* GetBarrelReference() { return Barrel; }
+
 	UFUNCTION(BlueprintCallable, Category = "Steup")
 	void SetTurretReference(class UTankTurret* TurretToSet);
 

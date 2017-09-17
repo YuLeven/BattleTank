@@ -13,6 +13,9 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 
+	// Sets default values for this pawn's properties
+	ATank();
+
 	// Causes the barrel and turret to move to a designed hit location
 	void AimAt(const FVector& HitLocation);
 
@@ -36,9 +39,6 @@ protected:
 
 private:
 
-	// Sets default values for this pawn's properties
-	ATank();
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -46,7 +46,10 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// This determinates how fast (and thus how far) the project will go once fired
-	UPROPERTY(EditAnywhere, Category = "Firing")
+	UPROPERTY(EditAnywhere, Category = Firing)
 	float ProjectileLaunchSpeed;
+
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<class AProjectile> ProjectileBlueprint;
 	
 };

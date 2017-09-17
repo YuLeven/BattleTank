@@ -3,7 +3,21 @@
 #include "Tank.h"
 #include "TankBarrel.h"
 #include "TankAimingComponent.h"
+#include "Projectile.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
 
+// Sets default values
+ATank::ATank()
+{
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = false;
+
+	// Fetches our aiming component
+	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+
+	// This is merely a sensible default. Don't change it here. Go do it on the tank BP
+	ProjectileLaunchSpeed = 4000.f;
+}
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
@@ -20,19 +34,13 @@ void ATank::SetTurretReference(UTankTurret* TurretToSet)
 void ATank::Fire()
 {
 	UE_LOG(LogTemp, Warning, TEXT("*Clicks*"));
-}
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
+		ProjectileBlueprint,
+		TankAimingComponent->GetBarrelReference()->GetSocketLocation(FName("Projectile")) + FVector(100.f, 0.f, 0.f),
+		TankAimingComponent->GetBarrelReference()->GetSocketRotation(FName("Projectile"))
+	);
 
-// Sets default values
-ATank::ATank()
-{
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
-	
-	// Fetches our aiming component
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-
-	// This is merely a sensible default. Don't change it here. Go do it on the tank BP
-	ProjectileLaunchSpeed = 4000.f;
+	Projectile->Launch(ProjectileLaunchSpeed);
 }
 
 // Called when the game starts or when spawned
