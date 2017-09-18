@@ -45,11 +45,24 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Returnes true if the tank is reloaded (ready to fire)
+	FORCEINLINE bool IsReloaded();
+
 	// This determinates how fast (and thus how far) the project will go once fired
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float ProjectileLaunchSpeed;
 
+	// This is the projectile that will be fired from the barrel
 	UPROPERTY(EditAnywhere, Category = Setup)
 	TSubclassOf<class AProjectile> ProjectileBlueprint;
+
+	// This is the time in seconds between shots
+	UPROPERTY(EditAnywhere)
+	float ReloadTimeInSeconds;
+
+	// This is used to store the last time the tank fired a projectile
+	// and will be used by IsReloaded() to indicate wether it's ready
+	// to fire again
+	double LastFireTime;
 	
 };

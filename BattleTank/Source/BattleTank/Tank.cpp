@@ -15,8 +15,9 @@ ATank::ATank()
 	// Fetches our aiming component
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 
-	// This is merely a sensible default. Don't change it here. Go do it on the tank BP
+	// These are merely sensible defaults. Don't change then here. Go do it on the tank BP
 	ProjectileLaunchSpeed = 4000.f;
+	ReloadTimeInSeconds = 3.f;
 }
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
@@ -31,16 +32,25 @@ void ATank::SetTurretReference(UTankTurret* TurretToSet)
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
+bool ATank::IsReloaded()
+{
+	return ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds) || LastFireTime == NULL;
+}
+
 void ATank::Fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("*Clicks*"));
-	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
-		ProjectileBlueprint,
-		TankAimingComponent->GetBarrelReference()->GetSocketLocation(FName("Projectile")) + FVector(100.f, 0.f, 0.f),
-		TankAimingComponent->GetBarrelReference()->GetSocketRotation(FName("Projectile"))
-	);
+	if (IsReloaded())
+	{
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			TankAimingComponent->GetBarrelReference()->GetSocketLocation(FName("Projectile")) + FVector(100.f, 0.f, 0.f),
+			TankAimingComponent->GetBarrelReference()->GetSocketRotation(FName("Projectile"))
+			);
 
-	Projectile->Launch(ProjectileLaunchSpeed);
+		Projectile->Launch(ProjectileLaunchSpeed);
+
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }
 
 // Called when the game starts or when spawned

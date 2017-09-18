@@ -10,11 +10,6 @@ ATankAIController::ATankAIController()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void ATankAIController::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
@@ -42,6 +37,8 @@ void ATankAIController::Tick(float DeltaTime)
 	if (PlayerTank != nullptr)
 	{
 		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+		// Fire 
+		GetControlledTank()->Fire();
 	}
 	
 }
