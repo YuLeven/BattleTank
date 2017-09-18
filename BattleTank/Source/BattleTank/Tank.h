@@ -49,7 +49,7 @@ private:
 	FORCEINLINE bool IsReloaded();
 
 	// This determinates how fast (and thus how far) the project will go once fired
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ProjectileLaunchSpeed;
 
 	// This is the projectile that will be fired from the barrel
