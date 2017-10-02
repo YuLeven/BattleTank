@@ -4,4 +4,7 @@
 
 
 
-
+void UTankMovementComponent::IntendMoveForward(float Throw)
+{
+	//nothing for now
+}

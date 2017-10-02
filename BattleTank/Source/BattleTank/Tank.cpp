@@ -3,6 +3,7 @@
 #include "Tank.h"
 #include "TankBarrel.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "Projectile.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 
@@ -14,6 +15,9 @@ ATank::ATank()
 
 	// Fetches our aiming component
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	
+	// Fetches our movement component
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 
 	// These are merely sensible defaults. Don't change then here. Go do it on the tank BP
 	ProjectileLaunchSpeed = 4000.f;
