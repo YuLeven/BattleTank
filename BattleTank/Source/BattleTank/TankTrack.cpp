@@ -4,15 +4,14 @@
 
 UTankTrack::UTankTrack()
 {
-	TrackMaxDrivingForce = 650000.f;
+	TrackMaxDrivingForce = 400000.f;
 }
 
 void UTankTrack::SetThrottle(float Throttle)
 { 
-	UE_LOG(LogTemp, Warning, TEXT("Applied throttle of %f to %s"), Throttle, *GetName())
-
 	FVector ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
 	FVector TrackLocation = GetComponentLocation();
+	UE_LOG(LogTemp, Warning, TEXT("Applied throttle of %s to %s"), *ForceApplied.ToString(), *GetName())
 	UPrimitiveComponent* RootTank = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	RootTank->AddForceAtLocation(ForceApplied, TrackLocation);
 }
