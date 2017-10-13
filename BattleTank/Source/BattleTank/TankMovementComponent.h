@@ -27,6 +27,14 @@ public:
 	// This moves the tank forwards and backwards in a fly-by-wire system
 	UFUNCTION(BlueprintCallable, Category = Movement)
 	void IntendMoveForward(float Throw);
+
+	// This rotates the tank clockwise in the fly-by-wire system
+	UFUNCTION(BlueprintCallable, Category = Movement)
+	void IntendTurnRight(float Throw);
+
+	// This rotates the tank anti-clockwise in the fly-by-wire system
+	UFUNCTION(BlueprintCallable, Category = Movement)
+	void IntendTurnLeft(float Throw);
 	
 private:
 
