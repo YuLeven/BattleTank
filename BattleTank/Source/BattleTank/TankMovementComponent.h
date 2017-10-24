@@ -35,6 +35,8 @@ public:
 	// This rotates the tank anti-clockwise in the fly-by-wire system
 	UFUNCTION(BlueprintCallable, Category = Movement)
 	void IntendTurnLeft(float Throw);
+
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	
 private:
 

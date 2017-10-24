@@ -22,6 +22,8 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 	RightTrack = RightTrackToSet;
 }
 
+
+
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	LeftTrack->SetThrottle(Throw);
@@ -40,4 +42,9 @@ void UTankMovementComponent::IntendTurnLeft(float Throw)
 	// Force is applied the opposite track relative to the direction we want to go
 	RightTrack->SetThrottle(Throw);
 	LeftTrack->SetThrottle(-Throw);
+}
+
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s should move to %s"), *GetOwner()->GetName(), *MoveVelocity.ToString())
 }

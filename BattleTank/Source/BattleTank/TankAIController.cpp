@@ -36,6 +36,10 @@ void ATankAIController::Tick(float DeltaTime)
 	// If we managed to find the player tank, aim at him
 	if (PlayerTank != nullptr)
 	{
+
+		//Moves towards the player tank
+		MoveToActor(PlayerTank, 30.f * 1000.f);
+
 		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
 		// Fire 
 		GetControlledTank()->Fire();
