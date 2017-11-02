@@ -38,7 +38,7 @@ void ATankAIController::Tick(float DeltaTime)
 	{
 
 		//Moves towards the player tank
-		MoveToActor(PlayerTank, 30.f * 1000.f);
+		MoveToActor(PlayerTank, 30.f * 100.f);
 
 		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
 		// Fire 
