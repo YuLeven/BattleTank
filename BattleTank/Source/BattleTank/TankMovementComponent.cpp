@@ -46,5 +46,9 @@ void UTankMovementComponent::IntendTurnLeft(float Throw)
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s should move to %s"), *GetOwner()->GetName(), *MoveVelocity.ToString())
+	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	FVector AIMovementForward = MoveVelocity.GetSafeNormal();
+	IntendMoveForward(
+		FVector::DotProduct(TankForward, AIMovementForward)
+	);
 }
