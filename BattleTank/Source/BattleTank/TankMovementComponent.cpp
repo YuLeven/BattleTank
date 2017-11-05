@@ -48,6 +48,18 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 {
 	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	FVector AIMovementForward = MoveVelocity.GetSafeNormal();
+
+	// We feed the cross product of the tank forward and the player direction onto IntendTurnRight
+	// to cause the AI tanks to try to be facing to the player at every frame
+	IntendTurnRight(
+		FVector::CrossProduct(
+			TankForward,
+			AIMovementForward
+		).Z
+	);
+
+	// We feed the dot product of the aforementioned vectors to cause
+	// the AI tanks to try to be parallel to the player at every frame
 	IntendMoveForward(
 		FVector::DotProduct(TankForward, AIMovementForward)
 	);
