@@ -21,7 +21,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+protected:
+
 	// This is the player's tank
+	UFUNCTION(BlueprintCallable, Category = Setup)
 	class ATank* GetControlledTank() const;
 
 private:

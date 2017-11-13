@@ -34,7 +34,7 @@ public:
 protected:
 
 	// Returns a pointer to this tank's aimiming component class
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	class UTankAimingComponent* TankAimingComponent;
 
 	UPROPERTY(BlueprintReadOnly)
