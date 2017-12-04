@@ -29,16 +29,12 @@ public:
 	UFUNCTION(BluePrintCallable)
 	void AimAt(const FVector& HitLocation, float ProjectileLaunchSpeed);
 
-	// Sets a reference to the barrel which will be moved by methods
-	// such as AimAt()
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetBarrelReference(class UTankBarrel* BarrelToSet);
-
 	// Returns the pointer to the barrel being manipulated by this class
 	FORCEINLINE UTankBarrel* GetBarrelReference() { return Barrel; }
 
+	// Factory method used to initialize the TankAimingComponentClass
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetTurretReference(class UTankTurret* TurretToSet);
+	void Initialize(UTankBarrel* Barrel, UTankTurret* Turret);
 
 protected:
 

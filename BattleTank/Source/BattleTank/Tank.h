@@ -19,14 +19,6 @@ public:
 	// Causes the barrel and turret to move to a designed hit location
 	void AimAt(const FVector& HitLocation);
 
-	// Sets the tank barrel to be controlled by this class
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	// Sets the tank turret to be controlled by this class
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
-
 	// Causes the tank to fire a projectile
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
@@ -44,9 +36,6 @@ private:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Returnes true if the tank is reloaded (ready to fire)
 	FORCEINLINE bool IsReloaded();
