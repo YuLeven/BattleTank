@@ -6,6 +6,15 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+// Aiming states
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -31,8 +40,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Steup")
 	void SetTurretReference(class UTankTurret* TurretToSet);
 
-protected:
-
 private:
 
 	// Moves the barrel in vertically the diretion according to the AimDirection unit vector
@@ -48,6 +55,10 @@ private:
 	// This is the turret which will be actec upon by the methods in this class
 	UPROPERTY()
 	UTankTurret* Turret = nullptr;
+
+	// This defines the current aiming state of the tank
+	UPROPERTY()
+	EFiringState FiringState;
 
 	FORCEINLINE FRotator CalculateDeltaRotator(const FRotator& RotatorA, const FRotator& RotatorB);
 	
