@@ -37,8 +37,14 @@ public:
 	// Returns the pointer to the barrel being manipulated by this class
 	FORCEINLINE UTankBarrel* GetBarrelReference() { return Barrel; }
 
-	UFUNCTION(BlueprintCallable, Category = "Steup")
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReference(class UTankTurret* TurretToSet);
+
+protected:
+
+	// This defines the current aiming state of the tank
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState;
 
 private:
 
@@ -55,10 +61,6 @@ private:
 	// This is the turret which will be actec upon by the methods in this class
 	UPROPERTY()
 	UTankTurret* Turret = nullptr;
-
-	// This defines the current aiming state of the tank
-	UPROPERTY()
-	EFiringState FiringState;
 
 	FORCEINLINE FRotator CalculateDeltaRotator(const FRotator& RotatorA, const FRotator& RotatorB);
 	
