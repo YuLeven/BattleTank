@@ -27,6 +27,12 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	class ATank* GetControlledTank() const;
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
+	void FoundAimingComponent(class UTankAimingComponent* AimingCompRef);
+
 private:
 
 	// Sets where the crosshair will sit vertically
