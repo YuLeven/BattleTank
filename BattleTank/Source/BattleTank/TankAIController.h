@@ -25,12 +25,7 @@ private:
 	virtual void BeginPlay() override;
 
 	// Tank Aiming Component
+	UPROPERTY()
 	class UTankAimingComponent* TankAimingComponent;
 
-	// Returns a point to the tank controlled by this instance of the AI controller
-	FORCEINLINE class ATank* GetControlledTank() const;
-	
-	// Returns a pointer to the player's tank
-	FORCEINLINE class ATank* GetPlayerTank() const;
-	
 };

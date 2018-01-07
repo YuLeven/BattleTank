@@ -4,7 +4,6 @@
 #include "Engine/World.h"
 #include "Runtime/Engine/Classes/GameFramework/PlayerController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
 
 ATankAIController::ATankAIController()
 {
@@ -13,35 +12,22 @@ ATankAIController::ATankAIController()
 
 void ATankAIController::BeginPlay() {
 	Super::BeginPlay();
-	TankAimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-}
-
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-ATank* ATankAIController::GetPlayerTank() const
-{
-	// This method call returns the NULL macro should it fail to find a player controller
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-
-	if (!ensure(PlayerController)) return nullptr;
-	
-	return Cast<ATank>(PlayerController->GetPawn());
+	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	ATank* PlayerTank = GetPlayerTank();
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	if (!ensure(PlayerController)) return;
+	APawn* PlayerTank = PlayerController->GetPawn();
 	if (!ensure(PlayerTank)) return;
-	
-	//Moves towards the player tank
-	MoveToActor(PlayerTank, 30.f * 100.f);
-
 	if (!ensure(TankAimingComponent)) return;
+	
+	// Moves towards the player tank
+	MoveToActor(PlayerTank, 30.f * 100.f);
+	// Aims at the player tank
 	TankAimingComponent->AimAt(PlayerTank->GetActorLocation());
-	// Fire 
-	GetControlledTank()->Fire();
+	// Fire at the player tank (if possible)
+	//GetControlledTank()->Fire();
 }
