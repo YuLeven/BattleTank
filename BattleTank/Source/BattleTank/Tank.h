@@ -29,9 +29,6 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	class UTankAimingComponent* TankAimingComponent;
 
-	UPROPERTY(BlueprintReadOnly)
-	class UTankMovementComponent* TankMovementComponent;
-
 private:
 
 	// Called when the game starts or when spawned
