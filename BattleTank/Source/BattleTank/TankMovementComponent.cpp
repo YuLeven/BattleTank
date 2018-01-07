@@ -12,11 +12,7 @@ UTankMovementComponent::UTankMovementComponent()
 
 void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet)
-	{
-		UE_LOG(LogTemp, Error, TEXT("A null reference was received when trying to set the tracks to the movement component."))
-		return;
-	}
+	if (!ensure(LeftTrackToSet && RightTrackToSet)) return;
 
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;

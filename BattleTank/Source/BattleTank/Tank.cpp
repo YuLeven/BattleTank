@@ -48,11 +48,7 @@ void ATank::BeginPlay()
 
 void ATank::AimAt(const FVector& HitLocation)
 {
-	if (!TankAimingComponent) 
-	{
-		UE_LOG(LogTemp, Error, TEXT("TankAimingComponent was not set"))
-		return;
-	}
+	if (ensure(!TankAimingComponent)) return;
 
 	TankAimingComponent->AimAt(HitLocation, ProjectileLaunchSpeed);
 }
