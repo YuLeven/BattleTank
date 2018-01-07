@@ -25,12 +25,16 @@ bool ATank::IsReloaded()
 
 void ATank::Fire()
 {
-	if (IsReloaded() && TankAimingComponent && TankAimingComponent->GetBarrelReference())
+	if (!ensure(TankAimingComponent)) return;
+	UTankBarrel* Barrel = TankAimingComponent->GetBarrelReference();
+	if (!ensure(Barrel)) return;
+	
+	if (IsReloaded())
 	{
 		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
-			TankAimingComponent->GetBarrelReference()->GetSocketLocation(FName("Projectile")) + FVector(100.f, 0.f, 0.f),
-			TankAimingComponent->GetBarrelReference()->GetSocketRotation(FName("Projectile"))
+			Barrel->GetSocketLocation(FName("Projectile")) + FVector(100.f, 0.f, 0.f),
+			Barrel->GetSocketRotation(FName("Projectile"))
 		);
 
 		Projectile->Launch(ProjectileLaunchSpeed);

@@ -20,29 +20,21 @@ ATank* ATankAIController::GetPlayerTank() const
 	// This method call returns the NULL macro should it fail to find a player controller
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 
-	if (PlayerController)
-	{
-		return Cast<ATank>(PlayerController->GetPawn());
-	}
-
-	return nullptr;
+	if (!ensure(PlayerController)) return nullptr;
+	
+	return Cast<ATank>(PlayerController->GetPawn());
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	ATank* PlayerTank = GetPlayerTank();
+	if (!ensure(PlayerTank)) return;
 	
-	// If we managed to find the player tank, aim at him
-	if (PlayerTank != nullptr)
-	{
+	//Moves towards the player tank
+	MoveToActor(PlayerTank, 30.f * 100.f);
 
-		//Moves towards the player tank
-		MoveToActor(PlayerTank, 30.f * 100.f);
-
-		GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
-		// Fire 
-		GetControlledTank()->Fire();
-	}
-	
+	GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+	// Fire 
+	GetControlledTank()->Fire();
 }

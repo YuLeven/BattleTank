@@ -41,12 +41,10 @@ void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLau
 	);
 
 	// If we managed to calculate a launch velocity, move the barrel towards its direction
-	if (bSucceededCalculatingLaunchVelocity)
-	{
-		MoveBarrelTowards(OutLaunchVelocity.GetSafeNormal());
-		MoveTurretTowards(OutLaunchVelocity.GetSafeNormal());
-	}
+	if (!ensure(bSucceededCalculatingLaunchVelocity)) return;
 
+	MoveBarrelTowards(OutLaunchVelocity.GetSafeNormal());
+	MoveTurretTowards(OutLaunchVelocity.GetSafeNormal());
 }
 
 FRotator UTankAimingComponent::CalculateDeltaRotator(const FRotator& RotatorA, const FRotator& RotatorB)
