@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
 #include "Runtime/Engine/Classes/Camera/PlayerCameraManager.h"
@@ -14,17 +13,12 @@ ATankPlayerController::ATankPlayerController()
 	LineTraceRange = 1000000.f;
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (!ensure(AimingComponent)) return;
-	FoundAimingComponent(AimingComponent);
+	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(TankAimingComponent)) return;
+	FoundAimingComponent(TankAimingComponent);
 }
 
 // Called every frame
@@ -36,13 +30,10 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	ATank* ControlledTank = GetControlledTank();
-	if (!ensure(ControlledTank)) return;
-
 	FVector HitLocation;
 	if (GetSightRayLocation(HitLocation))
 	{
-		ControlledTank->AimAt(HitLocation);
+		TankAimingComponent->AimAt(HitLocation);
 	};
 }
 

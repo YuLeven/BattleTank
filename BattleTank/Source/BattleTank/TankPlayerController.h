@@ -23,10 +23,6 @@ public:
 
 protected:
 
-	// This is the player's tank
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	class ATank* GetControlledTank() const;
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -59,5 +55,8 @@ private:
 
 	// True if the unit vector is pointing to anything hittable
 	bool GetLookVectorHitLocation(const FVector WorldDirection, FVector& HitLocation) const;
+
+	UPROPERTY()
+	UTankAimingComponent* TankAimingComponent;
 	
 };

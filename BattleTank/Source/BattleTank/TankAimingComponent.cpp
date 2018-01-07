@@ -15,16 +15,12 @@ UTankAimingComponent::UTankAimingComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 
 	FiringState = EFiringState::Locked;
-
-	// ...
+	ProjectileLaunchSpeed = 4000.f;
 }
 
-void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLaunchSpeed)
+void UTankAimingComponent::AimAt(const FVector& HitLocation)
 {
 	// Return early if there's no Barrel or Turret
-	// This should be set externally by the class composing itself with UTankAimingComponent
-	// TODO: Make an assertion here? This should always be set.
-	auto BasicMessage = FString(TEXT("static mesh component reference is not set in TankAimimingComponent. It won't move until it's set from blueprint"));
 	if (!ensure(Barrel && Turret)) return;
 
 	FVector OutLaunchVelocity;

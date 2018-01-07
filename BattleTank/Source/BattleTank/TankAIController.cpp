@@ -3,11 +3,17 @@
 #include "TankAIController.h"
 #include "Engine/World.h"
 #include "Runtime/Engine/Classes/GameFramework/PlayerController.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 
 ATankAIController::ATankAIController()
 {
 	PrimaryActorTick.bCanEverTick = true;
+}
+
+void ATankAIController::BeginPlay() {
+	Super::BeginPlay();
+	TankAimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 }
 
 ATank* ATankAIController::GetControlledTank() const
@@ -34,7 +40,8 @@ void ATankAIController::Tick(float DeltaTime)
 	//Moves towards the player tank
 	MoveToActor(PlayerTank, 30.f * 100.f);
 
-	GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+	if (!ensure(TankAimingComponent)) return;
+	TankAimingComponent->AimAt(PlayerTank->GetActorLocation());
 	// Fire 
 	GetControlledTank()->Fire();
 }

@@ -13,7 +13,6 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 
-	// Sets default values for this pawn's properties
 	ATank();
 
 	// Causes the barrel and turret to move to a designed hit location
@@ -22,12 +21,6 @@ public:
 	// Causes the tank to fire a projectile
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
-
-protected:
-
-	// Returns a pointer to this tank's aimiming component class
-	UPROPERTY(BlueprintReadOnly)
-	class UTankAimingComponent* TankAimingComponent;
 
 private:
 

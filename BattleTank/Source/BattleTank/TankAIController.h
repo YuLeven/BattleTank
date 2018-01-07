@@ -21,6 +21,12 @@ private:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Called once the game starts
+	virtual void BeginPlay() override;
+
+	// Tank Aiming Component
+	class UTankAimingComponent* TankAimingComponent;
+
 	// Returns a point to the tank controlled by this instance of the AI controller
 	FORCEINLINE class ATank* GetControlledTank() const;
 	

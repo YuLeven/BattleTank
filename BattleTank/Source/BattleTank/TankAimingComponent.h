@@ -27,7 +27,7 @@ public:
 	// Uses the hit location and projectile launch speed to move the barrel in
 	// the direction of the to-be hit actor
 	UFUNCTION(BluePrintCallable)
-	void AimAt(const FVector& HitLocation, float ProjectileLaunchSpeed);
+	void AimAt(const FVector& HitLocation);
 
 	// Returns the pointer to the barrel being manipulated by this class
 	FORCEINLINE UTankBarrel* GetBarrelReference() { return Barrel; }
@@ -50,6 +50,8 @@ private:
 	// Moves the turrent horizontally in the diretion according to the AimDirection unit vector
 	void MoveTurretTowards(const FVector& AimDirection);
 
+	FORCEINLINE FRotator CalculateDeltaRotator(const FRotator& RotatorA, const FRotator& RotatorB);
+
 	// This is the barrel which will be acted upon by the methods in this class
 	UPROPERTY()
 	UTankBarrel* Barrel = nullptr;
@@ -58,6 +60,8 @@ private:
 	UPROPERTY()
 	UTankTurret* Turret = nullptr;
 
-	FORCEINLINE FRotator CalculateDeltaRotator(const FRotator& RotatorA, const FRotator& RotatorB);
+	// This determinates how fast (and thus how far) the project will go once fired
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ProjectileLaunchSpeed;
 	
 };
