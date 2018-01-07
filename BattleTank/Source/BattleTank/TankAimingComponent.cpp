@@ -41,7 +41,7 @@ void UTankAimingComponent::AimAt(const FVector& HitLocation, float ProjectileLau
 	);
 
 	// If we managed to calculate a launch velocity, move the barrel towards its direction
-	if (!ensure(bSucceededCalculatingLaunchVelocity)) return;
+	if (!bSucceededCalculatingLaunchVelocity) return;
 
 	MoveBarrelTowards(OutLaunchVelocity.GetSafeNormal());
 	MoveTurretTowards(OutLaunchVelocity.GetSafeNormal());
