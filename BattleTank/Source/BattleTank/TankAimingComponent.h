@@ -29,6 +29,10 @@ public:
 	UFUNCTION(BluePrintCallable)
 	void AimAt(const FVector& HitLocation);
 
+	// Causes the tank to fire a projectile
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
 	// Returns the pointer to the barrel being manipulated by this class
 	FORCEINLINE UTankBarrel* GetBarrelReference() { return Barrel; }
 
@@ -54,14 +58,30 @@ private:
 
 	// This is the barrel which will be acted upon by the methods in this class
 	UPROPERTY()
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel;
 
 	// This is the turret which will be actec upon by the methods in this class
 	UPROPERTY()
-	UTankTurret* Turret = nullptr;
+	UTankTurret* Turret;
 
 	// This determinates how fast (and thus how far) the project will go once fired
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ProjectileLaunchSpeed;
+
+	// Returnes true if the tank is reloaded (ready to fire)
+	FORCEINLINE bool IsReloaded();
+
+	// This is the projectile that will be fired from the barrel
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<class AProjectile> ProjectileBlueprint;
+
+	// This is the time in seconds between shots
+	UPROPERTY(EditAnywhere)
+	float ReloadTimeInSeconds;
+
+	// This is used to store the last time the tank fired a projectile
+	// and will be used by IsReloaded() to indicate wether it's ready
+	// to fire again
+	double LastFireTime;
 	
 };

@@ -28,6 +28,6 @@ void ATankAIController::Tick(float DeltaTime)
 	MoveToActor(PlayerTank, 30.f * 100.f);
 	// Aims at the player tank
 	TankAimingComponent->AimAt(PlayerTank->GetActorLocation());
-	// Fire at the player tank (if possible)
-	//GetControlledTank()->Fire();
+	// Fires at the aimed tank (if possible)
+	TankAimingComponent->Fire();
 }

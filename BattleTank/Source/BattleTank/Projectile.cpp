@@ -23,6 +23,7 @@ void AProjectile::BeginPlay()
 
 void AProjectile::Launch(float LaunchSpeed)
 {
+	if (!ensure(TankProjectileMovementComponent)) return;
 	TankProjectileMovementComponent->SetVelocityInLocalSpace(FVector::ForwardVector * LaunchSpeed);
 	TankProjectileMovementComponent->Activate();
 }
