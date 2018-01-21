@@ -20,6 +20,8 @@ public:
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
+	void ApplySidewaysForceToPreventSlippage(float DeltaTime);
+
 	// Adds throttle value from -1 to 1 to the track
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void SetThrottle(float Throttle);
@@ -27,5 +29,9 @@ public:
 	// Determines how much force (in Newtons) can be applied when fully throttled
 	UPROPERTY(EditDefaultsOnly)
 	float TrackMaxDrivingForce;
+
+private:
+
+	bool IsOnGround();
 	
 };

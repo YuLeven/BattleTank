@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankTrack.h"
+#include "Engine/World.h"
 
 UTankTrack::UTankTrack()
 {
@@ -8,10 +9,27 @@ UTankTrack::UTankTrack()
 	TrackMaxDrivingForce = 400000.f;
 }
 
+bool UTankTrack::IsOnGround()
+{
+	return GetWorld()->LineTraceTestByChannel(
+		GetComponentLocation(),
+		GetComponentLocation() + FVector(0.f, 0.f, -20.f),
+		ECollisionChannel::ECC_Visibility
+	);
+}
+
 void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	// Add the force to the tank to prevent it from slipping sideways
+	if (IsOnGround())
+	{
+		ApplySidewaysForceToPreventSlippage(DeltaTime);
+	}
+}
 
+void UTankTrack::ApplySidewaysForceToPreventSlippage(float DeltaTime)
+{
 	// This is the component (the tank) to which the forces will be added
 	UStaticMeshComponent* TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 
@@ -32,11 +50,14 @@ void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 }
 
 void UTankTrack::SetThrottle(float Throttle)
-{ 
-	FVector ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
-	FVector TrackLocation = GetComponentLocation();
-	UPrimitiveComponent* RootTank = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-	RootTank->AddForceAtLocation(ForceApplied, TrackLocation);
+{
+	if (IsOnGround()) 
+	{
+		FVector ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
+		FVector TrackLocation = GetComponentLocation();
+		UPrimitiveComponent* RootTank = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+		RootTank->AddForceAtLocation(ForceApplied, TrackLocation);
+	}
 }
 
 
