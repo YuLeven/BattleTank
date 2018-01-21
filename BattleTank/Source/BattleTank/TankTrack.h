@@ -18,6 +18,8 @@ public:
 
 	UTankTrack();
 
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 	// Adds throttle value from -1 to 1 to the track
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void SetThrottle(float Throttle);
